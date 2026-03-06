@@ -17,7 +17,7 @@ tesseract_paths = [
     r'C:\Program Files\Autopsy-4.22.1\autopsy\Tesseract-OCR\tesseract.exe',
     r'C:\Program Files\Tesseract-OCR\tesseract.exe',
     r'C:\Program Files (x86)\Tesseract-OCR\tesseract.exe',
-    r'C:\Users\{}\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'.format(os.getenv('USERNAME')),
+    rf'C:\Users\{os.getenv("USERNAME")}\AppData\Local\Programs\Tesseract-OCR\tesseract.exe',
 ]
 
 for path in tesseract_paths:
@@ -131,4 +131,5 @@ def download_file(filename):
     return send_file(f'outputs/{filename}', as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    debug_mode = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(debug=debug_mode, port=5000)
